@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://registry-1.docker.io/bitnamicharts    # <-- OCI endpoint
+    repoURL: https://community-charts.github.io/helm-charts
     chart: mlflow
-    targetRevision: 5.1.21                     # version from ArtifactHub
+    targetRevision: 1.7.3                     # version from ArtifactHub
     helm:
       values: |
         service:
