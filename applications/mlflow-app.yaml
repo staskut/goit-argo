@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx
-  namespace: infra-tools           # ArgoCD's namespace
+  name: mlflow
+  namespace: infra-tools
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: nginx
-    targetRevision: 15.10.0        # confirmed stable version
+    repoURL: https://community-charts.github.io/helm-charts
+    chart: mlflow
+    targetRevision: 1.7.3
     helm:
       values: |
-        image:
-          tag: latest
         service:
           type: ClusterIP
-        replicaCount: 1
+        auth:
+          enabled: false
+        artifactRoot: /mlruns
   destination:
     server: https://kubernetes.default.svc
-    namespace: nginx
+    namespace: mlflow
   syncPolicy:
     automated:
       prune: true
