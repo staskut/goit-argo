@@ -16,7 +16,7 @@ spec:
         auth:
           enabled: false
         artifactRoot: 
-          defaultArtifactRoot: /mlruns
+          defaultArtifactRoot: /tmp/mlruns
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
