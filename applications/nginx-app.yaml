@@ -11,6 +11,8 @@ spec:
     targetRevision: 15.10.0        # confirmed stable version
     helm:
       values: |
+        image:
+          tag: 1.27  
         service:
           type: ClusterIP
         replicaCount: 1
