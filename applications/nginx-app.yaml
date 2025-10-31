@@ -12,7 +12,7 @@ spec:
     helm:
       values: |
         image:
-          tag: 1.29.3 
+          tag: latest
         service:
           type: ClusterIP
         replicaCount: 1
