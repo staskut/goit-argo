@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example
+  namespace: mlflow
+data:
+  example: "This proves MLflow namespace is reachable."
