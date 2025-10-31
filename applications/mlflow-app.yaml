@@ -15,7 +15,9 @@ spec:
           type: ClusterIP
         auth:
           enabled: false
-        artifactRoot: /mlruns
+        artifactRoot:
+          storage: file
+          path: /mlruns
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
