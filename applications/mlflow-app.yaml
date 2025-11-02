@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://community-charts.github.io/helm-charts
     chart: mlflow
-    targetRevision: 1.7.3
+    targetRevision: 1.8.0
     helm:
       values: |
         service:
@@ -16,24 +16,31 @@ spec:
         auth:
           enabled: false
 
-        # PostgreSQL backend
         backendStore:
-          databaseMigration: true
-          backendStoreUri: postgresql://mlflow:mlflow123@postgresql.mlflow.svc.cluster.local:5432/mlflow
+          database:
+            type: postgres
+            host: postgresql.mlflow.svc.cluster.local
+            port: 5432
+            user: mlflow
+            password: mlflow123
+            database: mlflow
 
-        # MinIO artifact storage
-        artifactRoot: s3://mlflow/
+        artifactRoot:
+          type: s3
+          s3:
+            bucket: mlflow
+            endpoint: http://minio.mlflow.svc.cluster.local:9000
+            accessKey: admin
+            secretKey: minio123
+            secure: false
+
         extraEnvVars:
-          - name: MLFLOW_S3_ENDPOINT_URL
-            value: http://minio.mlflow.svc.cluster.local:9000
-          - name: AWS_ACCESS_KEY_ID
-            value: admin
-          - name: AWS_SECRET_ACCESS_KEY
-            value: minio123
-          - name: AWS_DEFAULT_REGION
-            value: us-east-1
-          - name: PUSHGATEWAY_URL
-            value: http://pushgateway.mlflow.svc.cluster.local:9091
+          MLFLOW_S3_ENDPOINT_URL: http://minio.mlflow.svc.cluster.local:9000
+          AWS_ACCESS_KEY_ID: admin
+          AWS_SECRET_ACCESS_KEY: minio123
+          AWS_DEFAULT_REGION: us-east-1
+          PUSHGATEWAY_URL: http://pushgateway.mlflow.svc.cluster.local:9091
+
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
