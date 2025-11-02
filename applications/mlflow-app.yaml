@@ -15,8 +15,23 @@ spec:
           type: ClusterIP
         auth:
           enabled: false
-        artifactRoot: 
-          defaultArtifactRoot: /tmp/mlruns
+
+        # PostgreSQL backend
+        backendStore:
+          databaseMigration: true
+          backendStoreUri: postgresql://mlflow:mlflow123@postgresql.mlflow.svc.cluster.local:5432/mlflow
+
+        # MinIO artifact storage
+        artifactRoot: s3://mlflow/
+        extraEnvVars:
+          - name: MLFLOW_S3_ENDPOINT_URL
+            value: http://minio.mlflow.svc.cluster.local:9000
+          - name: AWS_ACCESS_KEY_ID
+            value: admin
+          - name: AWS_SECRET_ACCESS_KEY
+            value: minio123
+          - name: AWS_DEFAULT_REGION
+            value: us-east-1
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
