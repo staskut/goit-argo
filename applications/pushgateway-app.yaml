@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: prometheus-pushgateway
-    targetRevision: 3.2.2
+    targetRevision: 3.4.2
     helm:
       values: |
         service:
