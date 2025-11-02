@@ -17,8 +17,8 @@ spec:
           enabled: false
 
         backendStore:
-          database:
-            type: postgres
+          postgres:
+            enabled: true
             host: postgresql.mlflow.svc.cluster.local
             port: 5432
             user: mlflow
@@ -26,8 +26,8 @@ spec:
             database: mlflow
 
         artifactRoot:
-          type: s3
           s3:
+            enabled: true
             bucket: mlflow
             endpoint: http://minio.mlflow.svc.cluster.local:9000
             accessKey: admin
