@@ -6,21 +6,26 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
+    repoURL: https://charts.min.io/
     chart: minio
-    targetRevision: 14.6.19
+    targetRevision: 5.0.14
     helm:
       values: |
-        image:
-          tag: latest
-        auth:
-          rootUser: admin
-          rootPassword: minio123
-        defaultBuckets: mlflow
-        service:
-          type: ClusterIP
+        mode: standalone
+        rootUser: admin
+        rootPassword: minio123
         persistence:
           enabled: false
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+        service:
+          type: ClusterIP
+        buckets:
+          - name: mlflow
+            policy: none
+            purge: false
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
