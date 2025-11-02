@@ -31,7 +31,6 @@ spec:
             bucket: mlflow
             awsAccessKeyId: admin
             awsSecretAccessKey: minio123
-            secure: false
 
         extraEnvVars:
           MLFLOW_S3_ENDPOINT_URL: http://minio.mlflow.svc.cluster.local:9000
