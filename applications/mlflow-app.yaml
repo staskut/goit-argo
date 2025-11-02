@@ -32,6 +32,8 @@ spec:
             value: minio123
           - name: AWS_DEFAULT_REGION
             value: us-east-1
+          - name: PUSHGATEWAY_URL
+            value: http://pushgateway.mlflow.svc.cluster.local:9091
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
