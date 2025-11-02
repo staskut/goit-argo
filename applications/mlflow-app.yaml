@@ -29,9 +29,8 @@ spec:
           s3:
             enabled: true
             bucket: mlflow
-            endpoint: http://minio.mlflow.svc.cluster.local:9000
-            accessKey: admin
-            secretKey: minio123
+            awsAccessKeyId: admin
+            awsSecretAccessKey: minio123
             secure: false
 
         extraEnvVars:
