@@ -20,6 +20,21 @@ spec:
             type: ClusterIP
           persistentVolume:
             enabled: false
+        serverFiles:
+          prometheus.yml:
+            scrape_configs:
+              - job_name: prometheus
+                static_configs:
+                  - targets: ['localhost:9090']
+
+              - job_name: prometheus-pushgateway
+                static_configs:
+                  - targets: ['pushgateway-prometheus-pushgateway.monitoring.svc.cluster.local:9091']
+
+              - job_name: mlflow_training
+                metrics_path: /metrics/job/mlflow_training
+                static_configs:
+                  - targets: ['pushgateway-prometheus-pushgateway.monitoring.svc.cluster.local:9091']
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
