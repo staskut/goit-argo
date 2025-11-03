@@ -14,10 +14,12 @@ spec:
         alertmanager:
           enabled: false
         pushgateway:
-          enabled: false          # we already have our own
+          enabled: false
         server:
           service:
             type: ClusterIP
+          persistentVolume:
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
