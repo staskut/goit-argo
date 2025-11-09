@@ -28,7 +28,7 @@ spec:
             purge: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: mlflow
+    namespace: minio
   syncPolicy:
     automated:
       prune: true
