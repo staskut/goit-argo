@@ -11,11 +11,13 @@ spec:
     targetRevision: 1.7.3
     helm:
       values: |
+        image:
+          repository: docker.io/bitnami/mlflow
+          tag: latest
         service:
           type: ClusterIP
         auth:
           enabled: false
-
         backendStore:
           postgres:
             enabled: true
@@ -24,14 +26,12 @@ spec:
             user: mlflow
             password: mlflow123
             database: mlflow
-
         artifactRoot:
           s3:
             enabled: true
             bucket: mlflow
             awsAccessKeyId: admin
             awsSecretAccessKey: minio123
-
         extraEnvVars:
           MLFLOW_S3_ENDPOINT_URL: http://minio.minio.svc.cluster.local:9000
           AWS_ACCESS_KEY_ID: admin

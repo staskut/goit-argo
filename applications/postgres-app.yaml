@@ -11,6 +11,9 @@ spec:
     targetRevision: 15.5.28
     helm:
       values: |
+        image:
+          repository: docker.io/bitnami/postgresql
+          tag: latest
         auth:
           username: mlflow
           password: mlflow123

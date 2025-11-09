@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio
-  namespace: argocd                # <-- Application CR itself lives in argocd
+  namespace: argocd
 spec:
   project: default
   source:
@@ -11,6 +11,9 @@ spec:
     targetRevision: 5.0.14
     helm:
       values: |
+        image:
+          repository: docker.io/bitnami/minio
+          tag: latest
         mode: standalone
         rootUser: admin
         rootPassword: minio123
@@ -20,7 +23,7 @@ spec:
           type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
-    namespace: minio               # <-- separate namespace for MinIO workload
+    namespace: minio
   syncPolicy:
     automated:
       prune: true
