@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: minio
-  namespace: infra-tools
+  namespace: argocd                # <-- Application CR itself lives in argocd
 spec:
   project: default
   source:
@@ -16,27 +16,14 @@ spec:
         rootPassword: minio123
         persistence:
           enabled: false
-        resources:
-          requests:
-            memory: 512Mi
-            cpu: 250m
         service:
           type: ClusterIP
-        buckets:
-          - name: mlflow
-            policy: none
-            purge: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: minio
+    namespace: minio               # <-- separate namespace for MinIO workload
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  ignoreDifferences:
-    - group: argoproj.io
-      kind: Application
-      jsonPointers:
-        - /metadata/annotations/argocd.argoproj.io~1instance

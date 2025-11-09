@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mlflow
-  namespace: infra-tools
+  namespace: argocd
 spec:
   project: default
   source:
@@ -19,7 +19,7 @@ spec:
         backendStore:
           postgres:
             enabled: true
-            host: postgres-postgresql.mlflow.svc.cluster.local
+            host: postgres-postgresql.postgres.svc.cluster.local
             port: 5432
             user: mlflow
             password: mlflow123
@@ -33,12 +33,10 @@ spec:
             awsSecretAccessKey: minio123
 
         extraEnvVars:
-          MLFLOW_S3_ENDPOINT_URL: http://minio.mlflow.svc.cluster.local:9000
+          MLFLOW_S3_ENDPOINT_URL: http://minio.minio.svc.cluster.local:9000
           AWS_ACCESS_KEY_ID: admin
           AWS_SECRET_ACCESS_KEY: minio123
           AWS_DEFAULT_REGION: us-east-1
-          PUSHGATEWAY_URL: http://pushgateway.mlflow.svc.cluster.local:9091
-
   destination:
     server: https://kubernetes.default.svc
     namespace: mlflow
@@ -48,8 +46,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  ignoreDifferences:
-    - group: argoproj.io
-      kind: Application
-      jsonPointers:
-        - /metadata/annotations/argocd.argoproj.io~1instance
